@@ -1,13 +1,26 @@
 <template>
-    <div>
-        <div v-if="!profile"> Необходимо авторизоваться через
-            <a href="/login">Google</a>
-        </div>
-        <div v-else>
-            <div>{{profile.name}}&nbsp;<a href="/logout">Выйти</a></div>
-            <messages-list :messages="messages"/>
-        </div>
-    </div>
+    <v-app>
+        <v-app-bar app max-height="60">
+            <v-toolbar-title>
+                Sarafan
+            </v-toolbar-title>
+            <v-spacer></v-spacer>
+            <span v-if="profile">
+                {{profile.name}}
+            </span>
+            <v-btn v-if="profile" icon href="/logout">
+                <v-icon>exit_to_app</v-icon>
+            </v-btn>
+        </v-app-bar>
+        <v-main>
+            <v-container v-if="!profile"> Необходимо авторизоваться через
+                <a href="/login">Google</a>
+            </v-container>
+            <v-container v-if="profile">
+                <messages-list :messages="messages"/>
+            </v-container>
+        </v-main>
+    </v-app>
 </template>
 
 <script>
@@ -39,5 +52,7 @@
 </script>
 
 <style>
-
+    .main-app {
+        color: maroon;
+    }
 </style>
