@@ -12,10 +12,10 @@
 </template>
 
 <script>
-    import {sendMessage} from "util/ws";
+    import {mapActions} from 'vuex'
 
     export default {
-        props: ['messages', 'messageAttr'],
+        props: ['messageAttr'],
         data() {
             return {
                 text: '',
@@ -29,8 +29,19 @@
             }
         },
         methods: {
+            ...mapActions(['updateMessageAction', 'addMessageAction']),
             save() {
-                sendMessage({id: this.id, text: this.text})
+                const message = {
+                    id: this.id,
+                    text: this.text,
+                }
+
+                if (this.id) {
+                    this.updateMessageAction(message)
+                } else {
+                    this.addMessageAction(message)
+                }
+
                 this.text = ''
                 this.id = ''
             }
